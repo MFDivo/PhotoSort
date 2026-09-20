@@ -139,5 +139,3 @@ Este projeto é compartilhado como ferramenta utilitária. Verifique o repositó
 O PhotoSort foi criado para reduzir a dificuldade de organizar grandes coleções de imagens e vídeos, especialmente quando a estrutura de pastas e a data dos arquivos não seguem uma ordem consistente.
 
 ---
-
-Se quiser, também posso criar uma versão do README em inglês, mais visual e pronta para apresentação pública no GitHub.
