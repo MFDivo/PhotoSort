@@ -1,4 +1,4 @@
-from .gui import main
+from photo_sort.gui import main
 
 
 if __name__ == "__main__":
