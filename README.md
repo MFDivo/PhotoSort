@@ -1,10 +1,8 @@
 # PhotoSort
 
-Aplicativo para organizar fotos e vídeos em pastas por ano e mês, mantendo uma estrutura simples e fácil de navegar.
+Organizador automático de fotos e vídeos por ano e mês.
 
-## Visão geral
-
-O PhotoSort percorre uma pasta de origem, identifica a data de cada arquivo (priorizando EXIF, nome do arquivo e data de modificação), e organiza os itens em subpastas no formato:
+PhotoSort é uma ferramenta para organizar arquivos de mídia em pastas estruturadas no formato:
 
 ```text
 Destino/
@@ -17,40 +15,34 @@ Destino/
 │   └── ...
 ```
 
-Ele também suporta:
-
-- simulação antes de mover arquivos
-- cópia em vez de movimentação
-- detecção de duplicatas por hash MD5
-- checkpoint para continuar uma organização interrompida
-- log com relatório detalhado
-- barra de progresso e estimativa de tempo restante
-- organização de imagens e vídeos com extensões conhecidas
-- interface gráfica em Python (Tkinter)
+Ele busca a data dos arquivos por EXIF, nome do arquivo e, como último recurso, pela data de modificação. Depois, move ou copia os itens para uma estrutura ordenada e fácil de navegar.
 
 ## Funcionalidades
 
 - Organização automática por ano e mês
-- Extração de data a partir de EXIF (Pillow / exifread)
-- Detecção por nome do arquivo como fallback
-- Use da data de modificação do arquivo como último recurso
-- Arquivos sem data podem ser enviados para uma pasta de revisão manual
-- Modo de simulação para testar antes de mover arquivos
-- Modo de cópia para preservar a origem intacta
-- Deteção e ignorar arquivos duplicados
-- Arquivos com problemas de permissão não quebram o processo
-- Relatório final com estatísticas e distribuição por ano
+- Suporte para fotos e vídeos com extensões conhecidas
+- Detecção de data por EXIF (Pillow / exifread)
+- Fallback por nome do arquivo
+- Fallback por data de modificação
+- Modo de simulação antes de mover arquivos
+- Opção de copiar em vez de mover
+- Ignora arquivos duplicados por hash MD5
+- Salva checkpoint para continuar processamento interrompido
+- Gera log detalhado da operação
+- Exibe progresso e estimativa de tempo restante
+- Interface gráfica em Tkinter
+- Suporte a múltiplos idiomas
 
 ## Requisitos
 
-- Python 3.9+
-- Bibliotecas:
+- Python 3.9 ou superior
+- Dependências:
 
 ```bash
 pip install Pillow exifread
 ```
 
-## Como executar
+## Como instalar
 
 1. Clone o repositório:
 
@@ -71,41 +63,25 @@ pip install Pillow exifread
 python organize_photos.py
 ```
 
-## Uso da interface
+## Como usar
 
-Ao abrir o programa, você pode:
+Ao abrir a aplicação:
 
-- selecionar a pasta de origem
-- selecionar a pasta de destino
-- escolher entre simulação, cópia ou movimentação real
-- iniciar a organização
-- acompanhar progresso, status e log em tempo real
+1. Selecione a pasta de origem
+2. Selecione a pasta de destino
+3. Escolha uma das opções:
+   - Simulação (sem mover arquivos)
+   - Copiar arquivos
+   - Mover arquivos
+4. Clique em organizar
+5. Acompanhe a execução pelo progresso e pelo log
 
-## Estrutura do projeto
-
-```text
-PhotoSort/
-├── README.md
-├── organize_photos.py
-├── OrganizadorDeFotos.spec
-├── build_windows.bat
-├── PhotoSort.exe
-└── ...
-```
-
-## Observações importantes
-
-- Em modo de movimentação real, os arquivos são transferidos para a pasta de destino.
-- Em modo de cópia, a origem permanece intacta.
-- Em modo de simulação, o programa apenas calcula o que seria feito sem alterar os arquivos.
-- O checkpoint é salvo na pasta de destino durante a execução para permitir continuidade em caso de interrupção.
-
-## Exemplo de organização
+## Exemplos
 
 Antes:
 
 ```text
-minha_pasta/
+fotos/
 ├── IMG_001.jpg
 ├── IMG_002.jpg
 ├── video_1.mp4
@@ -115,23 +91,53 @@ minha_pasta/
 Depois:
 
 ```text
-minha_pasta_organizada/
+fotos_organizadas/
 ├── 2024/
 │   ├── Maio/
 │   │   ├── Maio_2024_1.jpg
 │   │   ├── Maio_2024_2.jpg
 │   │   └── Maio_2024_3.mp4
-│   └── ...
 ```
+
+## Estrutura do projeto
+
+```text
+PhotoSort/
+├── README.md
+├── organize_photos.py
+├── photo_sort/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── core.py
+│   └── gui.py
+├── OrganizadorDeFotos.spec
+├── build_windows.bat
+├── PhotoSort.exe
+└── ...
+```
+
+## Observações importantes
+
+- O modo de simulação é útil para testar a organização antes de mover arquivos reais.
+- O modo de cópia preserva a pasta original intacta.
+- O programa salva um checkpoint na pasta de destino para permitir continuidade em caso de interrupção.
+- Arquivos sem data identificável podem ser movidos para uma pasta de revisão manual.
+- Em casos de permissão ou erro de leitura, o sistema registra o problema e segue com os demais arquivos.
+
+## Limitações
+
+- A identificação de data depende da qualidade dos metadados do arquivo.
+- Alguns formatos raros ou arquivos com metadados corrompidos podem exigir revisão manual.
+- O programa foi pensado como ferramenta prática e útil, não como substituto de um organizador profissional de mídia.
 
 ## Licença
 
-Este projeto está sendo compartilhado como ferramenta utilitária pessoal/opensource. Verifique o arquivo ou repositório principal para detalhes específicos de uso e distribuição.
+Este projeto é compartilhado como ferramenta utilitária. Verifique o repositório para detalhes específicos de uso e distribuição.
 
-## Dica
+## Sobre o projeto
 
-Para arquivos com datas ambíguas ou sem metadados, o programa cria uma pasta de revisão manual para facilitar a conferência final.
+O PhotoSort foi criado para reduzir a dificuldade de organizar grandes coleções de imagens e vídeos, especialmente quando a estrutura de pastas e a data dos arquivos não seguem uma ordem consistente.
 
 ---
 
-Se você quiser, posso continuar e criar também uma versão mais profissional do README com badges, screenshots, guia de instalação para Windows e uma descrição mais “de produto”.
+Se quiser, também posso criar uma versão do README em inglês, mais visual e pronta para apresentação pública no GitHub.
